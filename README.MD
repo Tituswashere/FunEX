@@ -1,4 +1,4 @@
-# FunEx — G7 Physics Learning Hub
+# FunEx — Grade 7 Physics Learning Hub
 
 > ⚠️ **Development Notice**
 > This project is currently in the **development phase**. Features, simulations, and content are still being built and may change over time. Some sections may be incomplete or under improvement.
@@ -8,6 +8,26 @@
 With **FunWeb**, explore **Matter, Energy, and Motion** through interactive simulations.
 
 Experiment, visualize, and learn how objects move, how energy flows, and how matter changes — all in a fun, hands-on way designed especially for **Grade 7 Physics**.
+
+---
+
+## 🚀 How to Run FunEx Locally
+
+1. Click **Code → Download ZIP** on this GitHub repository
+2. Extract the ZIP file to your computer
+3. Open a terminal / command prompt in the extracted folder
+4. Run the server:
+
+   ```Windows Command Prompt
+   python serve.py
+   ```
+5. Open your browser and type:
+
+   ```
+   http://<your-ip>:8000
+   ```
+
+   (Example: `http://127.0.0.1:8000`)
 
 ---
 
