@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>FunWeb Simulations</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Inter Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* =========================================================
+   GLOBAL DESIGN TOKENS
+========================================================= */
+:root {
+  --blue: #444078;
+  --teal: #603b4f;
+  --dark: #0f172a;
+  --card-bg: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.15);
+  --text-main: #ffffff;
+  --text-muted: rgba(255,255,255,0.75);
+
+  --radius: 18px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.35);
+  --transition: 0.3s ease;
+}
+
+/* =========================================================
+   RESET & BASE
+========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-main);
+
+  background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+    radial-gradient(circle at top, #1e3a8a, #020617);
+}
+/* =========================================================
+   MAIN PAGE CONFIGURATION
+========================================================= */
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: url('background.jpg') center / cover no-repeat fixed;
+    overscroll-behavior: none;
+    color: white;
+  }
+/* =========================================================
+   PAGE LAYOUT
+========================================================= */
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* =========================================================
+   GLASS CARD BASE
+========================================================= */
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+header {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+header p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   SIMULATION SECTION
+========================================================= */
+.sim-layout {
+  display: grid;
+  grid-template-columns: 3fr 1.4fr;
+  gap: 1.5rem;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+#simCanvas {
+  width: 100%;
+  height: auto;
+  background: rgba(0,0,0,0.6);
+  border-radius: var(--radius);
+  display: block;
+}
+
+/* =========================================================
+   CONTROL PANEL
+========================================================= */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* =========================================================
+   OBJECT CARDS
+========================================================= */
+.object-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+
+.object-card h2 {
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   SLIDERS
+========================================================= */
+label {
+  display: block;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0.2rem;
+  color: var(--text-muted);
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--blue), var(--teal));
+  appearance: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--blue);
+}
+
+/* =========================================================
+   GLOBAL CONTROLS
+========================================================= */
+.global-controls {
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+.buttons {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+#startBtn { background: #31db0f; }
+#pauseBtn { background: #ebe705;  }
+#resetBtn { background: #ef4444; }
+
+/* =========================================================
+   MOBILE RESPONSIVE
+========================================================= */
+@media (max-width: 900px) {
+  .sim-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    order: -1;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+</style>
+</head>
+
+<body class="min-h-screen text-white bg-black/70">
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10 relative z-10">
+
+  <!-- Header -->
+  <section class="glass px-6 py-6 text-center">
+    <h1 class="text-3xl sm:text-4xl font-extrabold mb-2">MOTION SIMULATION</h1>
+    <p class="text-white/80 text-base sm:text-lg">
+      Adjust object speeds, mass, friction, and air resistance to see real-time motion.
+    </p>
+  </section>
+
+  <!-- Simulation & Controls -->
+  <section class="glass px-4 py-4 grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+    <!-- Canvas Area -->
+    <div class="lg:col-span-3 flex justify-center items-center">
+      <canvas id="simCanvas" width="900" height="400"></canvas>
+    </div>
+
+    <!-- Sidebar Controls -->
+    <div class="space-y-6">
+
+      <!-- Object Controls Template -->
+      <template id="object-control-template">
+        <div class="space-y-2">
+          <h2 class="slider-label text-lg"></h2>  
+          <label>Speed: <span class="speedVal">0</span> m/s</label>
+          
+          <input type="range" min="0" max="50" value="0" class="w-full speedSlider">
+          <label>Mass: <span class="massVal">10</span> kg</label>
+          <input type="range" min="1" max="100" value="10" class="w-full massSlider">
+        </div>
+      </template>
+
+      <div id="objectControls"></div>
+
+      <!-- Global Controls -->
+      <div class="space-y-2">
+        <h2 class="slider-label text-lg">Global Controls</h2>
+        <label>Max Distance: <span id="maxDistVal">200</span> m</label>
+        <input type="range" id="maxDistance" min="50" max="500" value="200">
+        <label>Time Scale: <span id="timeScaleVal">1</span>x</label>
+        <input type="range" id="timeScale" min="0.1" max="3" step="0.1" value="1">
+        <label>Friction (μ): <span id="frictionVal">0.1</span></label>
+        <input type="range" id="friction" min="0" max="1" step="0.01" value="0.1">
+        <label>Air Resistance (c): <span id="airResVal">0.05</span></label>
+        <input type="range" id="airRes" min="0" max="0.5" step="0.01" value="0.05">
+      </div>
+
+      <!-- Control Buttons -->
+      <div class="flex flex-wrap gap-2 justify-center">
+        <button id="startBtn" class="px-4 py-2 bg-green-500 rounded hover:bg-green-600">Start</button>
+        <button id="pauseBtn" class="px-4 py-2 bg-yellow-500 rounded hover:bg-yellow-600">Pause</button>
+        <button id="resetBtn" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600">Reset</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script>
+/* ===========================
+   Physics Simulation JS
+=========================== */
+const g = 9.81; // Gravity
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
+const radius = 20;
+
+let animationId = null;
+let lastTime = null;
+let running = false;
+
+// ===========================
+// Class: MovingObject
+// ===========================
+class MovingObject {
+  constructor(name, color, mass, speed) {
+    this.name = name;
+    this.color = color;
+    this.mass = mass;
+    this.speed = speed;
+    this.position = 0;
+    this.acceleration = 0;
+  }
+
+  applyForces(frictionMu, airC) {
+    const fFriction = frictionMu * this.mass * g;
+    const fAir = airC * this.speed;
+    const netForce = Math.max(0, (this.mass * this.speed) - fFriction - fAir);
+    this.acceleration = netForce / this.mass;
+  }
+
+  update(dt, maxDistance) {
+    this.speed += this.acceleration * dt;
+    this.speed = Math.max(0, this.speed); // Prevent negative speed
+    this.position += this.speed * dt;
+    if (this.position > maxDistance) {
+      this.position = maxDistance;
+      this.speed = 0;
+      this.acceleration = 0;
+    }
+  }
+}
+
+// ===========================
+// Initialize Objects
+// ===========================
+const objectData = [
+  {name:'A', color:'red', speed:0, mass:10},
+  {name:'B', color:'green', speed:0, mass:10},
+  {name:'C', color:'blue', speed:0, mass:10}
+];
+
+const objects = {};
+objectData.forEach(o => {
+  objects[o.name] = new MovingObject(o.name, o.color, o.mass, o.speed);
+});
+
+// ===========================
+// Generate Object Controls
+// ===========================
+const objControlsContainer = document.getElementById('objectControls');
+const template = document.getElementById('object-control-template');
+
+objectData.forEach(o => {
+  const clone = template.content.cloneNode(true);
+  const div = clone.querySelector('div');
+  div.querySelector('h2').textContent = `Object ${o.name} (${o.color.charAt(0).toUpperCase() + o.color.slice(1)})`;
+  objControlsContainer.appendChild(clone);
+});
+
+const controlDivs = objControlsContainer.querySelectorAll('div');
+
+// ===========================
+// Global sliders
+// ===========================
+const sliders = {
+  maxDistance: document.getElementById('maxDistance'),
+  timeScale: document.getElementById('timeScale'),
+  friction: document.getElementById('friction'),
+  airRes: document.getElementById('airRes')
+};
+const displays = {
+  maxDistVal: document.getElementById('maxDistVal'),
+  timeScaleVal: document.getElementById('timeScaleVal'),
+  frictionVal: document.getElementById('frictionVal'),
+  airResVal: document.getElementById('airResVal')
+};
+
+// ===========================
+// Update Objects from Sliders
+// ===========================
+function updateObjects() {
+  controlDivs.forEach((div, i) => {
+    const obj = objects[objectData[i].name];
+    const speedSlider = div.querySelector('.speedSlider');
+    const massSlider = div.querySelector('.massSlider');
+    const speedVal = div.querySelector('.speedVal');
+    const massVal = div.querySelector('.massVal');
+
+    obj.speed = parseFloat(speedSlider.value);
+    obj.mass = parseFloat(massSlider.value);
+
+    speedVal.textContent = obj.speed.toFixed(1);
+    massVal.textContent = obj.mass.toFixed(1);
+  });
+
+  displays.maxDistVal.textContent = sliders.maxDistance.value;
+  displays.timeScaleVal.textContent = sliders.timeScale.value;
+  displays.frictionVal.textContent = sliders.friction.value;
+  displays.airResVal.textContent = sliders.airRes.value;
+}
+
+// ===========================
+// Draw Simulation
+// ===========================
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const spacing = canvas.height / 4;
+  let i = 1;
+
+  for (const key of ['A','B','C']) {
+    const obj = objects[key];
+    const x = 50 + obj.position * (canvas.width - 100) / parseFloat(sliders.maxDistance.value);
+    const y = i * spacing;
+
+    ctx.fillStyle = obj.color;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.fillStyle = 'white';
+    ctx.font = '14px Inter';
+    ctx.fillText(`Speed: ${obj.speed.toFixed(1)} m/s`, x - 30, y - radius - 10);
+    ctx.fillText(`Dist: ${obj.position.toFixed(1)} m`, x - 30, y - radius - 25);
+    i++;
+  }
+}
+
+// ===========================
+// Animation Loop
+// ===========================
+function animate(time) {
+  if (!lastTime) lastTime = time;
+  const dt = ((time - lastTime) / 1000) * parseFloat(sliders.timeScale.value);
+  lastTime = time;
+
+  for (const key of ['A','B','C']) {
+    const obj = objects[key];
+    obj.applyForces(parseFloat(sliders.friction.value), parseFloat(sliders.airRes.value));
+    obj.update(dt, parseFloat(sliders.maxDistance.value));
+  }
+
+  draw();
+  if (running) animationId = requestAnimationFrame(animate);
+}
+
+// ===========================
+// Event Listeners
+// ===========================
+controlDivs.forEach(div => {
+  div.querySelectorAll('input').forEach(slider => slider.addEventListener('input', updateObjects));
+});
+Object.values(sliders).forEach(slider => slider.addEventListener('input', updateObjects));
+
+// Buttons
+document.getElementById('startBtn').addEventListener('click', () => {
+  if (!running) {
+    running = true;
+    lastTime = null;
+    animationId = requestAnimationFrame(animate);
+  }
+});
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  running = false;
+  if (animationId) cancelAnimationFrame(animationId);
+});
+document.getElementById('resetBtn').addEventListener('click', () => {
+  running = false;
+  if (animationId) cancelAnimationFrame(animationId);
+  for (const key of ['A','B','C']) {
+    objects[key].position = 0;
+    objects[key].speed = parseFloat(controlDivs[['A','B','C'].indexOf(key)].querySelector('.speedSlider').value);
+  }
+  draw();
+});
+
+// ===========================
+// Keyboard Shortcuts 
+// Space/Enter = Start, P = Pause, R = Reset
+// ===========================
+document.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'Enter') { document.getElementById('startBtn').click(); e.preventDefault(); }
+  if (e.key === 'p' || e.key === 'P') { document.getElementById('pauseBtn').click(); }
+  if (e.key === 'r' || e.key === 'R') { document.getElementById('resetBtn').click(); }
+});
+
+// ===========================
+// Initial Setup
+// ===========================
+updateObjects();
+draw();
+</script>
+
+</body>
+</html>

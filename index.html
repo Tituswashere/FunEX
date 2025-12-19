@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Correct viewport for iOS / Android -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>FunWeb Simulations</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Inter Font (optimized weights only) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Cross-platform rendering fixes */
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter';
+      background: url('background.jpg') center / cover no-repeat fixed;
+      overscroll-behavior: none;
+    }
+
+    /* iOS blur performance fallback */
+    @supports not (backdrop-filter: blur(1px)) {
+      .glass {
+        background-color: rgba(20, 20, 30, 0.85);
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-white bg-black/70">
+<div class="fixed inset-0 z-0" style="backdrop-filter: blur(0rem);"></div>
+
+
+
+  <main class="
+    max-w-7xl mx-auto
+    px-4 sm:px-6
+    py-12 sm:py-16
+    space-y-14
+  ">
+
+    <!-- HEADER GLASS CARD -->
+    <section class="
+      glass
+      bg-white/10 backdrop-blur-xl
+      rounded-2xl
+      px-8 py-10 sm:px-12 sm:py-12
+      shadow-xl
+    ">
+      <h1 class="
+        text-3xl sm:text-4xl md:text-5xl
+        font-extrabold tracking-wide
+        mb-6
+      ">
+        SIMULATIONS
+      </h1>
+
+      <p class="
+        text-base sm:text-lg
+        text-white/80
+        leading-relaxed
+        max-w-4xl
+      ">
+        With FunWeb, explore Matter, Energy, and Motion through interactive simulations.
+        Experiment, visualize, and learn how objects move, energy flows, and matter changes
+        all in a fun, hands-on way!
+      </p>
+    </section>
+
+    <!-- CARD GRID -->
+    <section>
+      <nav class="
+        grid grid-cols-1 sm:grid-cols-2
+        gap-6 sm:gap-8 lg:gap-10
+      ">
+
+        <!-- CARD TEMPLATE -->
+        <a href="1.html"
+           class="
+             group relative rounded-2xl overflow-hidden
+             shadow-lg
+             transition-transform duration-300 ease-out
+             active:scale-95
+             sm:hover:scale-105 lg:hover:scale-110
+           ">
+
+          <img src="motion.jpg"
+               loading="lazy"
+               class="
+                 w-full
+                 h-56 sm:h-64 lg:h-72 xl:h-80
+                 object-cover
+                 grayscale
+                 transition-transform duration-300
+                 sm:group-hover:scale-110
+                 sm:group-hover:grayscale-0
+               " />
+
+          <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+
+          <span class="
+            absolute bottom-6 left-6
+            text-2xl font-bold tracking-wide
+          ">
+            MOTION
+          </span>
+        </a>
+
+        <a href="2.html" class="group relative rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 ease-out active:scale-95 sm:hover:scale-105 lg:hover:scale-110">
+          <img src="matter.jpg" loading="lazy"
+               class="w-full h-56 sm:h-64 lg:h-72 xl:h-80 object-cover grayscale transition-transform duration-300 sm:group-hover:scale-110 sm:group-hover:grayscale-0" />
+          <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+          <span class="absolute bottom-6 left-6 text-2xl font-bold tracking-wide">MATTER</span>
+        </a>
+
+        <a href="3.html" class="group relative rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 ease-out active:scale-95 sm:hover:scale-105 lg:hover:scale-110">
+          <img src="energy.jpg" loading="lazy"
+               class="w-full h-56 sm:h-64 lg:h-72 xl:h-80 object-cover grayscale transition-transform duration-300 sm:group-hover:scale-110 sm:group-hover:grayscale-0" />
+          <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+          <span class="absolute bottom-6 left-6 text-2xl font-bold tracking-wide">ENERGY</span>
+        </a>
+
+        <a href="4.html" class="group relative rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 ease-out active:scale-95 sm:hover:scale-105 lg:hover:scale-110">
+          <img src="about.jpg" loading="lazy"
+               class="w-full h-56 sm:h-64 lg:h-72 xl:h-80 object-cover grayscale transition-transform duration-300 sm:group-hover:scale-110 sm:group-hover:grayscale-0" />
+          <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+          <span class="absolute bottom-6 left-6 text-2xl font-bold tracking-wide">ABOUT US</span>
+        </a>
+
+      </nav>
+    </section>
+
+  </main>
+
+</body>
+</html>
