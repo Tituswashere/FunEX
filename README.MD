@@ -1,4 +1,4 @@
-# FunEx — Grade 7 Physics Learning Hub
+# FunWeb — Grade 7 Physics Learning Hub
 
 > ⚠️ **Development Notice**
 > This project is currently in the **development phase**. Features, simulations, and content are still being built and may change over time. Some sections may be incomplete or under improvement.
@@ -54,3 +54,4 @@ Experiment, visualize, and learn how objects move, how energy flows, and how mat
 ---
 
 🎯 **FunEx makes physics simple, visual, and fun to learn!**
+
